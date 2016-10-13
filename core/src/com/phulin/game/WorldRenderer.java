@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 public class WorldRenderer {
+	public static final int BLOCK_SIZE = 40;
 	private PacmanGame pacmanGame;
 	private World world;
 	private Texture pacmanImg;
@@ -24,9 +25,10 @@ public class WorldRenderer {
 	public void render(float delta){
 		mazeRenderer.render();
 		SpriteBatch batch = pacmanGame.batch;
-		batch.begin();
-        Vector2 pos = pacman.getPosition();
-        batch.draw(pacmanImg, pos.x, pos.y);
+        Vector2 pos = world.getPacman().getPosition();
+        batch.begin();
+        batch.draw(pacmanImg, pos.x - BLOCK_SIZE/2, 
+                PacmanGame.HEIGHT - pos.y - BLOCK_SIZE/2);
         batch.end();
 	}
 }

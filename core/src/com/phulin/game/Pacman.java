@@ -9,6 +9,15 @@ public class Pacman {
     public static final int DIRECTION_DOWN = 3;
     public static final int DIRECTION_LEFT = 4;
     public static final int DIRECTION_STILL = 0;
+    public static final int SPEED = 10;
+    
+    private static final int [][] DIR_OFFSETS = new int [][] {
+        {0,0},
+        {0,-1},
+        {1,0},
+        {0,1},
+        {-1,0}
+    };
 	 
     public Pacman(int x, int y) {
         position = new Vector2(x,y);
@@ -19,19 +28,7 @@ public class Pacman {
     }
     
     public void move(int dir) { 
-        switch(dir) {
-        case DIRECTION_UP:
-            position.y -= 10;
-            break;
-        case DIRECTION_RIGHT:
-            position.x += 10;
-            break;
-        case DIRECTION_DOWN:
-            position.y += 10;
-            break;
-        case DIRECTION_LEFT:
-            position.x -= 10;
-            break;
-        }
+    	 position.x += 10 * DIR_OFFSETS[dir][0];
+         position.y += 10 * DIR_OFFSETS[dir][1];
     }
 }

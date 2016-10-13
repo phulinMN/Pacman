@@ -19,6 +19,7 @@ public class  GameScreen extends ScreenAdapter {
 	public GameScreen(PacmanGame pacmanGame){
 		this.pacmanGame = pacmanGame;	
 		pacmanImg = new Texture("pacman.png");
+		pacman = new Pacman(100,100);
 		//x = 100;
 		//y = 100;
 	}
@@ -45,11 +46,9 @@ public class  GameScreen extends ScreenAdapter {
 		update(delta);
 		SpriteBatch batch = pacmanGame.batch;
 		batch.begin();
-		Vector2 pos = pacman.getPosition();
-		batch.draw(pacmanImg, pos.x, pos.y);
-		//batch.begin();
-		//batch.draw(pacmanImg, x, y);
-		batch.end();
+        Vector2 pos = pacman.getPosition();
+        batch.draw(pacmanImg, pos.x, pos.y);
+        batch.end();
 	}
 	
 }

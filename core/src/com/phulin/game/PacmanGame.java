@@ -18,7 +18,7 @@ public class PacmanGame extends Game {
 
 	@Override
 	public void render () {
-		//super.render();
+		super.render();
 	}
 	
 	@Override

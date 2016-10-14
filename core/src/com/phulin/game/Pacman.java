@@ -1,5 +1,8 @@
 package com.phulin.game;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.badlogic.gdx.math.Vector2;
 
 public class Pacman {
@@ -14,6 +17,12 @@ public class Pacman {
     public static final int DIRECTION_STILL = 0;
     public static final int SPEED = 5;
     private World world;
+    
+    public interface DotEattenListener{
+    	void notifyDotEatten();
+    }
+    
+    private List<DotEattenListener> listeners;
     
     private int getRow() {
         return ((int)position.y) / WorldRenderer.BLOCK_SIZE; 
@@ -47,6 +56,7 @@ public class Pacman {
         nextDirection = DIRECTION_STILL;
         this.world = world;
         //this.maze = maze;
+        listeners = new LinkedList<DotEattenListener>();
     }    
     
     public void setNextDirection(int dir) {
@@ -69,6 +79,7 @@ public class Pacman {
                 currentDirection = nextDirection;
                 if(maze.hasDotAt(getRow(),getColumn())){
                 	maze.removeDotAt(getRow(), getColumn());
+                	notifyDotEattenListeners();
                 }
             } else {
                 currentDirection = DIRECTION_STILL;    
@@ -84,4 +95,14 @@ public class Pacman {
         return ((((int)position.x - blockSize/2) % blockSize) == 0) &&
                 ((((int)position.y - blockSize/2) % blockSize) == 0);
 	}
+	
+	public void registerDotEattenListener(DotEattenListener l) {
+        listeners.add(l);
+    }
+ 
+    private void notifyDotEattenListeners() {
+        for(DotEattenListener l : listeners) {
+            l.notifyDotEatten();
+        }
+    }
 }
